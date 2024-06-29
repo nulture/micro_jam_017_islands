@@ -1,9 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bagdyfnn5e2og"]
+[gd_scene load_steps=9 format=3 uid="uid://bagdyfnn5e2og"]
 
 [ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
 [ext_resource type="PackedScene" uid="uid://dhrtwdrxxt3f" path="res://scenes/player_tools/tool_sand.tscn" id="2_eniv1"]
 [ext_resource type="PackedScene" uid="uid://b3emtkoliqfm" path="res://scenes/player_tools/tool_light.tscn" id="2_wrebh"]
 [ext_resource type="PackedScene" uid="uid://br680u1gnecxx" path="res://scenes/player_tools/tool_rain.tscn" id="3_qvq1l"]
+[ext_resource type="Script" path="res://addons/scrungly_tools/scripts/move_with_cast_3d.gd" id="5_kpei8"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_835it"]
+height = 0.001
+radius = 7.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxw0x"]
 shading_mode = 0
@@ -11,7 +16,8 @@ albedo_color = Color(0.2484, 0.2484, 0.2484, 1)
 
 [sub_resource type="TorusMesh" id="TorusMesh_n4mtk"]
 material = SubResource("StandardMaterial3D_kxw0x")
-inner_radius = 0.75
+inner_radius = 5.25
+outer_radius = 7.0
 rings = 12
 ring_segments = 3
 
@@ -21,6 +27,13 @@ mouse_plane = Plane(0, 1, 0, 0)
 stick_speed = 5.0
 player_tools = Array[PackedScene]([ExtResource("2_eniv1"), ExtResource("2_wrebh"), ExtResource("3_qvq1l")])
 
-[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+[node name="cast" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+shape = SubResource("CylinderShape3D_835it")
+target_position = Vector3(0, -100, 0)
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="cast"]
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -10, 0)
 mesh = SubResource("TorusMesh_n4mtk")
+skeleton = NodePath("../..")
+script = ExtResource("5_kpei8")

@@ -3,7 +3,7 @@ class_name PlayerToolTerrain extends PlayerToolHold
 @export var paint_type : int = 0
 @export var height : float = 1.0
 @export var radius : float = 1.0
-@export var falloff : float = 0.0
+@export_range(0.0, 1.0) var falloff : float = 0.0
 
 func _ready() -> void:
 	pass
