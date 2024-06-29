@@ -1,17 +1,22 @@
 class_name Terrain extends Node3D
 
+@export var hmap_min_height_padding : float = 1.0
+
 @export var shape : CollisionShape3D
 @export var mesh : MeshInstance3D
 
 @export var hmap_size : int = 256
 @export var pmap_size : int = 256
-@export var known_size : float = 1.0
 @export var pixels_per_unit : float = 1.0
 
 var hmap_shape : HeightMapShape3D
 var hmap_image : Image
 var hmap_texture : ImageTexture
-var hmap_min_height : float
+var _hmap_min_height : float
+var hmap_min_height : float :
+	get : return _hmap_min_height + hmap_min_height_padding
+	set (value) :
+		_hmap_min_height = value - hmap_min_height_padding
 
 var pmap_image : Image
 var pmap_texture : ImageTexture
@@ -21,6 +26,7 @@ static var inst : Terrain
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	inst = self
+	hmap_min_height = 0.0
 	
 	var mat = mesh.mesh.surface_get_material(0) as ShaderMaterial
 	hmap_texture = mat.get_shader_parameter("height") as ImageTexture
@@ -29,6 +35,7 @@ func _ready() -> void:
 	var hmap_data = PackedByteArray()
 	hmap_data.resize(hmap_size * hmap_size * 4)
 	hmap_image = Image.new()
+	hmap_image.fill(Color(_hmap_min_height, 0, 0))
 	hmap_image.set_data(hmap_size, hmap_size, false, Image.FORMAT_RF, hmap_data)
 	hmap_texture.set_image(hmap_image)
 	
@@ -83,7 +90,7 @@ func add_height(unit_position : Vector2, paint : int, height : float, radius : f
 			hmap_alpha = height * clamp(hmap_alpha, 0.0, 1.0)
 			var hmap_color = hmap_image.get_pixelv(pos)
 			var r = hmap_color.r + hmap_alpha
-			hmap_color = Color(max(r, hmap_min_height), 0, 0)
+			hmap_color = Color(max(r, _hmap_min_height), 0, 0)
 			hmap_image.set_pixelv(pos, hmap_color)
 			
 			var pmap_alpha = remap(percent, pmap_falloff, 1.0, 1.0, 0.0)

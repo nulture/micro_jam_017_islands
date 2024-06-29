@@ -46,9 +46,9 @@ visible = false
 [node name="terrain" type="Node3D" parent="." node_paths=PackedStringArray("shape", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
 script = ExtResource("7_uh1ch")
+hmap_min_height_padding = 2.0
 shape = NodePath("terrain_body/shape")
 mesh = NodePath("terrain_body/mesh")
-known_size = 256.0
 
 [node name="terrain_body" type="AnimatableBody3D" parent="terrain"]
 
@@ -65,6 +65,7 @@ mesh = SubResource("PlaneMesh_3vvqu")
 skeleton = NodePath("../water_body/camera_root")
 
 [node name="water_body" type="AnimatableBody3D" parent="terrain"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="shape" type="CollisionShape3D" parent="terrain/water_body"]
 shape = SubResource("WorldBoundaryShape3D_x8nr0")
