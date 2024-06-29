@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://bwln06s0mijil"]
 
 [ext_resource type="PackedScene" uid="uid://ck7mrxogelqqu" path="res://scenes/ui/items.tscn" id="1_418ir"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_f4mcx"]
 [ext_resource type="PackedScene" uid="uid://kyw7ggafjjsx" path="res://scenes/player_camera.tscn" id="1_n7dex"]
 [ext_resource type="Material" uid="uid://dsrd6ulm7f4fx" path="res://assets/materials/void_grid.tres" id="3_8enyy"]
 [ext_resource type="Material" uid="uid://0v75n8kp07id" path="res://assets/materials/ocean.tres" id="3_j8q8g"]
 [ext_resource type="Material" uid="uid://dr8yjj626e2f4" path="res://assets/materials/world_terrain.tres" id="6_i5kdh"]
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="7_uh1ch"]
+[ext_resource type="PackedScene" uid="uid://ctcygxcpg47cy" path="res://scenes/creatures/creature_base.tscn" id="8_tykiw"]
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_go6xd"]
 map_width = 256
@@ -29,9 +29,7 @@ size = Vector2(256, 256)
 material = ExtResource("3_j8q8g")
 size = Vector2(256, 256)
 
-[node name="world" type="Node3D" node_paths=PackedStringArray("ocean_rise_node")]
-script = ExtResource("1_f4mcx")
-ocean_rise_node = NodePath("terrain/water_body")
+[node name="world" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -43,10 +41,11 @@ visible = false
 
 [node name="items" parent="canvas_layer" instance=ExtResource("1_418ir")]
 
-[node name="terrain" type="Node3D" parent="." node_paths=PackedStringArray("shape", "mesh")]
+[node name="terrain" type="Node3D" parent="." node_paths=PackedStringArray("water_node", "shape", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
 script = ExtResource("7_uh1ch")
-hmap_min_height_padding = 2.0
+water_node = NodePath("water_body")
+water_padding = 2.0
 shape = NodePath("terrain_body/shape")
 mesh = NodePath("terrain_body/mesh")
 
@@ -65,7 +64,8 @@ mesh = SubResource("PlaneMesh_3vvqu")
 skeleton = NodePath("../water_body/camera_root")
 
 [node name="water_body" type="AnimatableBody3D" parent="terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_layer = 2
+collision_mask = 0
 
 [node name="shape" type="CollisionShape3D" parent="terrain/water_body"]
 shape = SubResource("WorldBoundaryShape3D_x8nr0")
@@ -75,3 +75,11 @@ mesh = SubResource("PlaneMesh_vryke")
 skeleton = NodePath("../camera_root")
 
 [node name="camera_root" parent="terrain/water_body" instance=ExtResource("1_n7dex")]
+
+[node name="creature" parent="." instance=ExtResource("8_tykiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 5.74677, 130)
+species = &"cat"
+
+[node name="creature_2" parent="." instance=ExtResource("8_tykiw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 8.67872, 130)
+species = &"birb"

@@ -38,6 +38,7 @@ player_tools = Array[PackedScene]([ExtResource("2_wrebh"), ExtResource("3_qvq1l"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 shape = SubResource("CylinderShape3D_835it")
 target_position = Vector3(0, -100, 0)
+collision_mask = 3
 
 [node name="cursor_ground" type="Node3D" parent="cast"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)

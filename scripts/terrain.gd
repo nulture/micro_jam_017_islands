@@ -1,6 +1,7 @@
 class_name Terrain extends Node3D
 
-@export var hmap_min_height_padding : float = 1.0
+@export var water_node : Node3D
+@export var water_padding : float = 1.0
 
 @export var shape : CollisionShape3D
 @export var mesh : MeshInstance3D
@@ -9,14 +10,17 @@ class_name Terrain extends Node3D
 @export var pmap_size : int = 256
 @export var pixels_per_unit : float = 1.0
 
+var material : ShaderMaterial
 var hmap_shape : HeightMapShape3D
 var hmap_image : Image
 var hmap_texture : ImageTexture
-var _hmap_min_height : float
-var hmap_min_height : float :
-	get : return _hmap_min_height + hmap_min_height_padding
+var _water_level_internal : float
+var water_level : float :
+	get : return _water_level_internal
 	set (value) :
-		_hmap_min_height = value - hmap_min_height_padding
+		_water_level_internal = value
+		water_node.position.y = value + water_padding
+		material.set_shader_parameter("height_light_min", water_level)
 
 var pmap_image : Image
 var pmap_texture : ImageTexture
@@ -26,17 +30,18 @@ static var inst : Terrain
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	inst = self
-	hmap_min_height = 0.0
 	
-	var mat = mesh.mesh.surface_get_material(0) as ShaderMaterial
-	hmap_texture = mat.get_shader_parameter("height") as ImageTexture
-	pmap_texture = mat.get_shader_parameter("paint") as ImageTexture
+	material = mesh.mesh.surface_get_material(0) as ShaderMaterial
+	hmap_texture = material.get_shader_parameter("height") as ImageTexture
+	pmap_texture = material.get_shader_parameter("paint") as ImageTexture
+	
+	water_level = 0.0
 	
 	var hmap_data = PackedByteArray()
 	hmap_data.resize(hmap_size * hmap_size * 4)
 	hmap_image = Image.new()
-	hmap_image.fill(Color(_hmap_min_height, 0, 0))
 	hmap_image.set_data(hmap_size, hmap_size, false, Image.FORMAT_RF, hmap_data)
+	hmap_image.fill(Color(_water_level_internal, 0, 0))
 	hmap_texture.set_image(hmap_image)
 	
 	var pmap_data = PackedByteArray()
@@ -90,7 +95,7 @@ func add_height(unit_position : Vector2, paint : int, height : float, radius : f
 			hmap_alpha = height * clamp(hmap_alpha, 0.0, 1.0)
 			var hmap_color = hmap_image.get_pixelv(pos)
 			var r = hmap_color.r + hmap_alpha
-			hmap_color = Color(max(r, _hmap_min_height), 0, 0)
+			hmap_color = Color(max(r, _water_level_internal), 0, 0)
 			hmap_image.set_pixelv(pos, hmap_color)
 			
 			var pmap_alpha = remap(percent, pmap_falloff, 1.0, 1.0, 0.0)
@@ -106,7 +111,18 @@ func _physics_process(delta: float) -> void:
 	hmap_shape.map_data = hmap_image.get_data().to_float32_array()
 	
 func get_height_at(coord : Vector2i) -> float : 
-	return 0.0
+	return hmap_image.get_pixelv(coord).r
 
 func get_paint_at(coord : Vector2i) -> int :
+	var color = pmap_image.get_pixelv(coord)
+	
+	if color.r > color.g :
+		return 1
+	if color.g > color.b :
+		return 2
+	if color.b > 0.0 :
+		return 3
 	return 0
+	
+func check_is_underwater(node: Node3D) -> bool :
+	return get_height_at(Vector2i(round(global_position.x), round(global_position.z))) < water_level

@@ -7,5 +7,4 @@
 render_priority = 0
 shader = ExtResource("1_7wa3n")
 shader_parameter/uv_scale = Vector2(32, 32)
-shader_parameter/uv_parallax = Vector2(0.8, 0.8)
 shader_parameter/albedo = ExtResource("2_4ujpq")
