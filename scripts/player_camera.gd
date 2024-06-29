@@ -13,7 +13,7 @@ var stick_vector : Vector3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	var edges_vector : Vector3
+	var edges_vector = Vector3.ZERO
 	if mouse_position.x < edges_thickness :
 		edges_vector.x -= 1.0
 	elif mouse_position.x > edges_boundary.x :

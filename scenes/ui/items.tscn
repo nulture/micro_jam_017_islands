@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://ck7mrxogelqqu"]
+
+[node name="items" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="h_box_container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = -40.0
+offset_right = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="button" type="Button" parent="h_box_container"]
+layout_mode = 2
+text = "Light"
+
+[node name="button_2" type="Button" parent="h_box_container"]
+layout_mode = 2
+text = "Water"
+
+[node name="button_3" type="Button" parent="h_box_container"]
+layout_mode = 2
+text = "Sand"
+
+[node name="button_4" type="Button" parent="h_box_container"]
+layout_mode = 2
+text = "Soil"
+
+[node name="button_5" type="Button" parent="h_box_container"]
+layout_mode = 2
+text = "Lightning"

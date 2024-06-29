@@ -1,15 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bagdyfnn5e2og"]
+[gd_scene load_steps=5 format=3 uid="uid://bagdyfnn5e2og"]
 
 [ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
+[ext_resource type="PackedScene" uid="uid://b3emtkoliqfm" path="res://scenes/player_tools/tool_light.tscn" id="2_wrebh"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_b2fqv"]
-radial_segments = 8
-rings = 5
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxw0x"]
+shading_mode = 0
+albedo_color = Color(0.2484, 0.2484, 0.2484, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_n4mtk"]
+material = SubResource("StandardMaterial3D_kxw0x")
+inner_radius = 0.75
+rings = 12
+ring_segments = 3
 
 [node name="cursor_root" type="Node3D"]
 script = ExtResource("1_lxjdj")
 mouse_plane = Plane(0, 1, 0, 0)
 stick_speed = 5.0
+player_tools = Array[PackedScene]([ExtResource("2_wrebh")])
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_b2fqv")
+transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("TorusMesh_n4mtk")

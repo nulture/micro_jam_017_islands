@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3emtkoliqfm"]
+
+[ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_lmut8"]
+[ext_resource type="Script" path="res://scripts/player_tools/tool_light.gd" id="2_gbsbb"]
+[ext_resource type="PackedScene" uid="uid://d27n6f2inetnl" path="res://scenes/player_tools/item_light.tscn" id="3_g3wc5"]
+
+[node name="tool_light" instance=ExtResource("1_lmut8")]
+script = ExtResource("2_gbsbb")
+item_prefab = ExtResource("3_g3wc5")

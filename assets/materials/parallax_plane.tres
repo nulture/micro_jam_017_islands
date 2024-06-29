@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dsrd6ulm7f4fx"]
+
+[ext_resource type="Shader" uid="uid://8fyn4icg3n44" path="res://assets/shaders/parallax_plane.tres" id="1_7wa3n"]
+[ext_resource type="Texture2D" uid="uid://0tjlbxl5y8cw" path="res://assets/textures/tile.png" id="2_4ujpq"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_7wa3n")
+shader_parameter/uv_scale = Vector2(32, 32)
+shader_parameter/uv_parallax = Vector2(0.8, 0.8)
+shader_parameter/albedo = ExtResource("2_4ujpq")
