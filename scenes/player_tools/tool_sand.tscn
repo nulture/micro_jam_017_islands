@@ -7,3 +7,4 @@
 script = ExtResource("2_hunu4")
 height = 0.05
 radius = 2.0
+falloff = 0.5

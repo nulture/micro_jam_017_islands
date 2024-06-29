@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwln06s0mijil"]
+[gd_scene load_steps=13 format=3 uid="uid://bwln06s0mijil"]
 
 [ext_resource type="PackedScene" uid="uid://ck7mrxogelqqu" path="res://scenes/ui/items.tscn" id="1_418ir"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_f4mcx"]
@@ -17,6 +17,8 @@ material = ExtResource("3_j8q8g")
 size = Vector2(40, 40)
 
 [sub_resource type="SphereMesh" id="SphereMesh_yvtc8"]
+
+[sub_resource type="HeightMapShape3D" id="HeightMapShape3D_go6xd"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ktp6w"]
 material = ExtResource("6_i5kdh")
@@ -53,9 +55,19 @@ mesh = SubResource("PlaneMesh_vryke")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 mesh = SubResource("SphereMesh_yvtc8")
 
-[node name="terrain" type="MeshInstance3D" parent="."]
+[node name="terrain" type="Node3D" parent="." node_paths=PackedStringArray("shape", "mesh")]
+script = ExtResource("7_uh1ch")
+shape = NodePath("body/shape")
+mesh = NodePath("mesh")
+known_size = 40.0
+pixels_per_unit = 6.4
+
+[node name="body" type="AnimatableBody3D" parent="terrain"]
+
+[node name="shape" type="CollisionShape3D" parent="terrain/body"]
+shape = SubResource("HeightMapShape3D_go6xd")
+
+[node name="mesh" type="MeshInstance3D" parent="terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 mesh = SubResource("PlaneMesh_ktp6w")
-script = ExtResource("7_uh1ch")
-known_size = 40.0
-pixels_per_unit = 25.6
+skeleton = NodePath("../..")
