@@ -5,8 +5,8 @@
 [ext_resource type="Material" uid="uid://dsrd6ulm7f4fx" path="res://assets/materials/void_grid.tres" id="3_8enyy"]
 [ext_resource type="Material" uid="uid://0v75n8kp07id" path="res://assets/materials/ocean.tres" id="3_j8q8g"]
 [ext_resource type="Material" uid="uid://dr8yjj626e2f4" path="res://assets/materials/world_terrain.tres" id="6_i5kdh"]
+[ext_resource type="PackedScene" uid="uid://cnx6hx0uu40sg" path="res://scenes/creature_spawner.tscn" id="7_7hgt7"]
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="7_uh1ch"]
-[ext_resource type="PackedScene" uid="uid://ctcygxcpg47cy" path="res://scenes/creatures/creature_base.tscn" id="8_tykiw"]
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_go6xd"]
 map_width = 256
@@ -76,6 +76,4 @@ skeleton = NodePath("../camera_root")
 
 [node name="camera_root" parent="terrain/water_body" instance=ExtResource("1_n7dex")]
 
-[node name="creature" parent="." instance=ExtResource("8_tykiw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 130, 5.74677, 130)
-species = &"cat"
+[node name="creature_spawner" parent="terrain/water_body" instance=ExtResource("7_7hgt7")]

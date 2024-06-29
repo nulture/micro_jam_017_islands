@@ -27,6 +27,9 @@ var pmap_texture : ImageTexture
 
 static var inst : Terrain
 
+var terrain_bounds_size : Vector2 :
+	get : return Vector2(hmap_size, hmap_size)
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	inst = self
@@ -111,6 +114,7 @@ func _physics_process(delta: float) -> void:
 	hmap_shape.map_data = hmap_image.get_data().to_float32_array()
 	
 func get_height_at(coord : Vector2i) -> float : 
+	if coord.x < 0 || coord.x >= hmap_size || coord.y < 0 || coord.y >= hmap_size : return -1.0
 	return hmap_image.get_pixelv(coord).r
 
 func get_paint_at(coord : Vector2i) -> int :
@@ -123,6 +127,8 @@ func get_paint_at(coord : Vector2i) -> int :
 	if color.b > 0.0 :
 		return 3
 	return 0
-	
-func check_is_underwater(node: Node3D) -> bool :
-	return get_height_at(Vector2i(round(global_position.x), round(global_position.z))) < water_level
+
+func check_pos_overwater(pos : Vector3) -> bool :
+	return get_height_at(Vector2i(round(pos.x), round(pos.z))) <= water_level
+func check_is_overwater(node: Node3D) -> bool :
+	return check_pos_overwater(node.global_position)

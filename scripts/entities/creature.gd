@@ -53,19 +53,23 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+	# Fell out of world
+	if global_position.y < -10.0 :
+		#print("I fell down")
+		kill()
 	
 	# Hunger
 	hunger -= hunger_rate * delta
 	if hunger < 0.0 :
-		print("I've starved")
+		#print("I've starved")
 		kill()
 
 	# Prevent death on spawn or if not ready to touch
 	if !is_touch_ready : return
 	
 	# Drowning
-	if Terrain.inst.check_is_underwater(self) :
-		print("I've drownded")
+	if Terrain.inst.check_is_overwater(self) :
+		#print("I've drownded")
 		kill()
 
 func random_with_other(other: Creature) -> bool :
@@ -86,10 +90,11 @@ func mate(other: Creature) -> void :
 		other.baby()
 
 func spawn(from: Vector3, to: Vector3) -> void :
-	global_position = from
+	global_position = from + Vector3.UP
 	velocity = to * jump_lateral_strength + Vector3.UP * jump_vertical_strength
 
 func kill() -> void :
+	print("kill")
 	queue_free()
 	
 func baby() -> void :
