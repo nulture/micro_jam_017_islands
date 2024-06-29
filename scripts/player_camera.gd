@@ -39,6 +39,9 @@ func _process(delta: float) -> void:
 	
 	position += edges_vector * edges_speed * _sprint_multiplier * delta
 	position += stick_vector * stick_speed * _sprint_multiplier * delta
+	
+	global_position.x = clamp(global_position.x, 0, Terrain.inst.hmap_size)
+	global_position.z = clamp(global_position.z, 0, Terrain.inst.hmap_size)
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion :

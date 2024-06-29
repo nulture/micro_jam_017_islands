@@ -19,7 +19,7 @@ var water_level : float :
 	get : return _water_level_internal
 	set (value) :
 		_water_level_internal = value
-		water_node.position.y = value + water_padding
+		water_node.global_position.y = value + water_padding
 		material.set_shader_parameter("height_light_min", water_level)
 
 var pmap_image : Image

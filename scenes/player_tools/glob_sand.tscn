@@ -4,3 +4,5 @@
 
 [node name="glob_sand" instance=ExtResource("1_xn1gq")]
 paint_type = 1
+radius = 10.0
+hmap_falloff = 0.0

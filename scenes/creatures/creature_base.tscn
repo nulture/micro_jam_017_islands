@@ -2,39 +2,55 @@
 
 [ext_resource type="Texture2D" uid="uid://bbeo1i1eyh88y" path="res://assets/sprites/circle.png" id="1_4ocuc"]
 [ext_resource type="Script" path="res://scripts/entities/creature.gd" id="1_n3re6"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_h2xs8"]
+[ext_resource type="Script" path="res://addons/scrungly_tools/scripts/move_with_cast_3d.gd" id="2_nffcj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_jt646"]
-radius = 0.66
+radius = 2.0
 
-[node name="creature" type="CharacterBody3D" node_paths=PackedStringArray("touch_timer", "birth_timer")]
-collision_layer = 4
-collision_mask = 5
-floor_stop_on_slope = false
-floor_max_angle = 0.959931
+[node name="creature" type="Node3D" node_paths=PackedStringArray("terrain_cast", "wander_cast", "wander_idle_timer", "wander_timer", "touch_timer", "birth_timer")]
 script = ExtResource("1_n3re6")
+terrain_cast = NodePath("terrain_cast")
+wander_cast = NodePath("terrain_cast/touch_area/wander_cast")
+wander_idle_timer = NodePath("terrain_cast/touch_area/wander_cast/wander_idle_timer")
+wander_timer = NodePath("terrain_cast/touch_area/wander_cast/wander_timer")
 touch_timer = NodePath("touch_cooldown")
 birth_timer = NodePath("birth_cooldown")
-jump_vertical_strength = 10.0
+jump_lateral_strength = 1.5
+jump_vertical_strength = 15.0
+hangry_threshold = 8.0
 
-[node name="shape" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_h2xs8")
+[node name="terrain_cast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+target_position = Vector3(0, -120, 0)
 
-[node name="touch_area" type="Area3D" parent="."]
-collision_layer = 0
+[node name="touch_area" type="Area3D" parent="terrain_cast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -120, 0)
+collision_layer = 4
 collision_mask = 4
-monitorable = false
+script = ExtResource("2_nffcj")
 
-[node name="collision_shape_3d" type="CollisionShape3D" parent="touch_area"]
+[node name="collision_shape_3d" type="CollisionShape3D" parent="terrain_cast/touch_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("SphereShape3D_jt646")
 
-[node name="sprite" type="Sprite3D" parent="."]
-pixel_size = 0.0625
+[node name="sprite" type="Sprite3D" parent="terrain_cast/touch_area/collision_shape_3d"]
+pixel_size = 0.25
 billboard = 1
 double_sided = false
 texture_filter = 0
 texture = ExtResource("1_4ocuc")
+
+[node name="wander_cast" type="Node3D" parent="terrain_cast/touch_area"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, -5)
+
+[node name="wander_idle_timer" type="Timer" parent="terrain_cast/touch_area/wander_cast"]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="wander_timer" type="Timer" parent="terrain_cast/touch_area/wander_cast"]
+process_callback = 0
+one_shot = true
 
 [node name="touch_cooldown" type="Timer" parent="."]
 process_callback = 0
@@ -47,6 +63,8 @@ process_callback = 0
 wait_time = 15.0
 one_shot = true
 
-[connection signal="body_entered" from="touch_area" to="." method="on_touch_area_body_entered"]
+[connection signal="area_entered" from="terrain_cast/touch_area" to="." method="on_touch_area_area_entered"]
+[connection signal="timeout" from="terrain_cast/touch_area/wander_cast/wander_idle_timer" to="." method="on_wander_idle_timer_timeout"]
+[connection signal="timeout" from="terrain_cast/touch_area/wander_cast/wander_timer" to="." method="on_wander_timer_timeout"]
 [connection signal="timeout" from="touch_cooldown" to="." method="on_touch_cooldown_timeout"]
 [connection signal="timeout" from="birth_cooldown" to="." method="on_birth_cooldown_timeout"]

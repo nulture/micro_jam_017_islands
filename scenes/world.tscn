@@ -45,7 +45,7 @@ visible = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
 script = ExtResource("7_uh1ch")
 water_node = NodePath("water_body")
-water_padding = 2.0
+water_padding = 0.5
 shape = NodePath("terrain_body/shape")
 mesh = NodePath("terrain_body/mesh")
 

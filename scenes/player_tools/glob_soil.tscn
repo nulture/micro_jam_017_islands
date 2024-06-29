@@ -4,4 +4,6 @@
 
 [node name="glob_soil" instance=ExtResource("1_5rdpc")]
 paint_type = 2
+height = 1.0
+radius = 7.0
 pmap_falloff = 0.8

@@ -6,4 +6,5 @@
 
 [node name="tool_sand" instance=ExtResource("1_aayfk")]
 script = ExtResource("2_2208x")
+spawn_rate = 0.02
 item_prefab = ExtResource("3_imx0e")

@@ -46,4 +46,4 @@ func try_spawn() -> void :
 	get_tree().root.add_child(node)
 	node.spawn(global_position, shape_cast.get_collision_point(0) - global_position)
 	
-	print("Spawned new creature at: ", node.global_position)
+	#print("Spawned new creature at: ", node.global_position)

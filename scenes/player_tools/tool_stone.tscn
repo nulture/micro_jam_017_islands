@@ -6,4 +6,5 @@
 
 [node name="tool_stone" instance=ExtResource("1_abm2p")]
 script = ExtResource("2_acb6f")
+spawn_rate = 0.4
 item_prefab = ExtResource("3_bsw5h")

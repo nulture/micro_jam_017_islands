@@ -4,4 +4,7 @@
 
 [node name="glob_stone" instance=ExtResource("1_t5884")]
 paint_type = 3
+height = 8.0
+radius = 9.0
+hmap_falloff = 0.0
 pmap_falloff = 0.9
