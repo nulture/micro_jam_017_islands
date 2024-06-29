@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bagdyfnn5e2og"]
+[gd_scene load_steps=7 format=3 uid="uid://bagdyfnn5e2og"]
 
 [ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
+[ext_resource type="PackedScene" uid="uid://dhrtwdrxxt3f" path="res://scenes/player_tools/tool_sand.tscn" id="2_eniv1"]
 [ext_resource type="PackedScene" uid="uid://b3emtkoliqfm" path="res://scenes/player_tools/tool_light.tscn" id="2_wrebh"]
 [ext_resource type="PackedScene" uid="uid://br680u1gnecxx" path="res://scenes/player_tools/tool_rain.tscn" id="3_qvq1l"]
 
@@ -18,7 +19,7 @@ ring_segments = 3
 script = ExtResource("1_lxjdj")
 mouse_plane = Plane(0, 1, 0, 0)
 stick_speed = 5.0
-player_tools = Array[PackedScene]([ExtResource("2_wrebh"), ExtResource("3_qvq1l")])
+player_tools = Array[PackedScene]([ExtResource("2_eniv1"), ExtResource("2_wrebh"), ExtResource("3_qvq1l")])
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0)

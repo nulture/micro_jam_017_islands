@@ -22,7 +22,7 @@ var tool_index : int = 0 :
 		
 		active_tool = player_tools[_tool_index].instantiate() as PlayerTool
 		print("Switched to new tool '%s'" % active_tool.name)
-		
+
 var _active_tool : PlayerTool
 var active_tool : PlayerTool :
 	get : return _active_tool

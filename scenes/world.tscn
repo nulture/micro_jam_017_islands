@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwln06s0mijil"]
+[gd_scene load_steps=12 format=3 uid="uid://bwln06s0mijil"]
 
 [ext_resource type="PackedScene" uid="uid://ck7mrxogelqqu" path="res://scenes/ui/items.tscn" id="1_418ir"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_f4mcx"]
 [ext_resource type="PackedScene" uid="uid://kyw7ggafjjsx" path="res://scenes/player_camera.tscn" id="1_n7dex"]
 [ext_resource type="Material" uid="uid://dsrd6ulm7f4fx" path="res://assets/materials/void_grid.tres" id="3_8enyy"]
 [ext_resource type="Material" uid="uid://0v75n8kp07id" path="res://assets/materials/ocean.tres" id="3_j8q8g"]
+[ext_resource type="Material" uid="uid://dr8yjj626e2f4" path="res://assets/materials/world_terrain.tres" id="6_i5kdh"]
+[ext_resource type="Script" path="res://scripts/terrain.gd" id="7_uh1ch"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3vvqu"]
 material = ExtResource("3_8enyy")
@@ -16,22 +18,44 @@ size = Vector2(40, 40)
 
 [sub_resource type="SphereMesh" id="SphereMesh_yvtc8"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_ktp6w"]
+material = ExtResource("6_i5kdh")
+size = Vector2(40, 40)
+subdivide_width = 256
+subdivide_depth = 256
+
 [node name="world" type="Node3D" node_paths=PackedStringArray("ocean_rise_node")]
 script = ExtResource("1_f4mcx")
 ocean_rise_node = NodePath("camera_root")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_energy = 0.25
+shadow_enabled = true
 
 [node name="canvas_layer" type="CanvasLayer" parent="."]
 
 [node name="items" parent="canvas_layer" instance=ExtResource("1_418ir")]
 
 [node name="camera_root" parent="." instance=ExtResource("1_n7dex")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 
 [node name="void_plane" type="MeshInstance3D" parent="camera_root"]
+visible = false
 mesh = SubResource("PlaneMesh_3vvqu")
 
 [node name="water_plane" type="MeshInstance3D" parent="camera_root"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+visible = false
 mesh = SubResource("PlaneMesh_vryke")
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
 mesh = SubResource("SphereMesh_yvtc8")
+
+[node name="terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+mesh = SubResource("PlaneMesh_ktp6w")
+script = ExtResource("7_uh1ch")
+known_size = 40.0
+pixels_per_unit = 25.6

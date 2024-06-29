@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dsrd6ulm7f4fx"]
 
 [ext_resource type="Shader" uid="uid://8fyn4icg3n44" path="res://assets/shaders/parallax_plane.tres" id="1_7wa3n"]
-[ext_resource type="Texture2D" uid="uid://0tjlbxl5y8cw" path="res://assets/textures/tile.png" id="2_4ujpq"]
+[ext_resource type="Texture2D" uid="uid://0tjlbxl5y8cw" path="res://assets/textures/t_grid_alpha.png" id="2_4ujpq"]
 
 [resource]
 render_priority = 0

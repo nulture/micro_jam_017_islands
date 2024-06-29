@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dhrtwdrxxt3f"]
+
+[ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_aayfk"]
+[ext_resource type="Script" path="res://scripts/player_tools/tool_sand.gd" id="2_hunu4"]
+
+[node name="tool_sand" instance=ExtResource("1_aayfk")]
+script = ExtResource("2_hunu4")
+height = 0.05
+radius = 2.0
