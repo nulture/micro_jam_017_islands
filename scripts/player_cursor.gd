@@ -1,6 +1,7 @@
 class_name PlayerCursor
 extends Node3D
 
+@export var spawn_node : Node3D
 @export var camera : Camera3D
 @export var mouse_plane : Plane
 @export var stick_speed : float = 1.0

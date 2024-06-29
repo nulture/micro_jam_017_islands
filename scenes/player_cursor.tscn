@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bagdyfnn5e2og"]
+[gd_scene load_steps=10 format=3 uid="uid://bagdyfnn5e2og"]
 
 [ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
 [ext_resource type="PackedScene" uid="uid://dhrtwdrxxt3f" path="res://scenes/player_tools/tool_sand.tscn" id="2_eniv1"]
@@ -21,8 +21,13 @@ outer_radius = 3.0
 rings = 12
 ring_segments = 3
 
-[node name="cursor_root" type="Node3D"]
+[sub_resource type="SphereMesh" id="SphereMesh_xb0q0"]
+radius = 2.0
+height = 4.0
+
+[node name="cursor_root" type="Node3D" node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("1_lxjdj")
+spawn_node = NodePath("cast/cursor_ground/spawn")
 mouse_plane = Plane(0, 1, 0, 0)
 stick_speed = 5.0
 player_tools = Array[PackedScene]([ExtResource("2_eniv1"), ExtResource("2_wrebh"), ExtResource("3_qvq1l")])
@@ -32,8 +37,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
 shape = SubResource("CylinderShape3D_835it")
 target_position = Vector3(0, -100, 0)
 
-[node name="mesh_instance_3d" type="MeshInstance3D" parent="cast"]
-transform = Transform3D(1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -10, 0)
-mesh = SubResource("TorusMesh_n4mtk")
-skeleton = NodePath("../..")
+[node name="cursor_ground" type="Node3D" parent="cast"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0)
 script = ExtResource("5_kpei8")
+
+[node name="mesh" type="MeshInstance3D" parent="cast/cursor_ground"]
+mesh = SubResource("TorusMesh_n4mtk")
+skeleton = NodePath("../../..")
+
+[node name="spawn" type="Node3D" parent="cast/cursor_ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="cast/cursor_ground/spawn"]
+mesh = SubResource("SphereMesh_xb0q0")

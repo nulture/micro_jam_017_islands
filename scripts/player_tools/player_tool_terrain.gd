@@ -9,5 +9,8 @@ func _ready() -> void:
 	pass
 
 func process_hold(delta: float) -> void:
-	Terrain.inst.add_height(Vector2(global_position.x, global_position.z), height, radius, falloff)
+	var glob = item_prefab.instantiate()
+	get_tree().root.add_child(glob)
+	glob.global_position = PlayerCursor.inst.spawn_node.global_position
+	#Terrain.inst.add_height(Vector2(global_position.x, global_position.z), height, radius, falloff)
 	pass

@@ -181,6 +181,10 @@ use_tool={
 ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="terrain"
+
 [physics]
 
 3d/physics_engine="GodotPhysics3D"

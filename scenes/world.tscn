@@ -82,10 +82,12 @@ mesh = SubResource("PlaneMesh_ktp6w")
 skeleton = NodePath("../..")
 
 [node name="static_body_3d" type="RigidBody3D" parent="."]
-transform = Transform3D(0.432562, 0.414657, 0.800593, 0.0310124, 0.880597, -0.47285, -0.90107, 0.229365, 0.368054, 128, 36, 128)
+transform = Transform3D(0.432562, 0.414657, 0.800593, 0.0310124, 0.880597, -0.47285, -0.90107, 0.229365, 0.368054, 155.783, 36, 128)
+collision_layer = 2
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d"]
 shape = SubResource("BoxShape3D_7jqwq")
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="static_body_3d"]
+transform = Transform3D(1, -1.49012e-08, 2.98023e-08, 2.98023e-08, 1, 2.98023e-08, 5.96046e-08, 2.23517e-08, 1, 0, 0, 0)
 mesh = SubResource("BoxMesh_su6s1")
