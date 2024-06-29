@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://kyw7ggafjjsx"]
+[gd_scene load_steps=4 format=3 uid="uid://kyw7ggafjjsx"]
 
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="1_kiklo"]
+[ext_resource type="PackedScene" uid="uid://bagdyfnn5e2og" path="res://scenes/player_cursor.tscn" id="2_pmace"]
 
 [sub_resource type="Environment" id="Environment_mwlrm"]
 background_mode = 1
@@ -9,7 +10,12 @@ background_energy_multiplier = 0.0
 [node name="camera_root" type="Node3D"]
 script = ExtResource("1_kiklo")
 stick_speed = 5.0
+edges_speed = 5.0
+edges_thickness = 5.0
 
 [node name="camera_3d" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 3, 3)
 environment = SubResource("Environment_mwlrm")
+
+[node name="cursor_root" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_pmace")]
+camera = NodePath("../camera_3d")

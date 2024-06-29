@@ -8,6 +8,8 @@ rings = 5
 
 [node name="cursor_root" type="Node3D"]
 script = ExtResource("1_lxjdj")
+mouse_plane = Plane(0, 1, 0, 0)
+stick_speed = 5.0
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_b2fqv")
