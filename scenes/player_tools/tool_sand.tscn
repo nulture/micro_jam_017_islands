@@ -1,12 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://dhrtwdrxxt3f"]
 
 [ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_aayfk"]
-[ext_resource type="Script" path="res://scripts/player_tools/tool_sand.gd" id="2_hunu4"]
-[ext_resource type="PackedScene" uid="uid://eo2quos3bj3v" path="res://scenes/player_tools/item_sand.tscn" id="3_xg7ab"]
+[ext_resource type="Script" path="res://scripts/player_tools/player_tool_terrain.gd" id="2_2208x"]
+[ext_resource type="PackedScene" uid="uid://cblvqm0lcnqh" path="res://scenes/player_tools/glob_sand.tscn" id="3_imx0e"]
 
 [node name="tool_sand" instance=ExtResource("1_aayfk")]
-script = ExtResource("2_hunu4")
-height = 0.25
-radius = 5.0
-falloff = 0.333
-item_prefab = ExtResource("3_xg7ab")
+script = ExtResource("2_2208x")
+item_prefab = ExtResource("3_imx0e")

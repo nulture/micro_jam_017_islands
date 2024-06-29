@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf5m1fnmwgsib"]
+
+[ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_ihyrg"]
+[ext_resource type="Script" path="res://scripts/player_tools/player_tool_terrain.gd" id="2_l5v0t"]
+[ext_resource type="PackedScene" uid="uid://dg4tup6kj8h6y" path="res://scenes/player_tools/glob_soil.tscn" id="3_jbfmn"]
+
+[node name="tool_soil" instance=ExtResource("1_ihyrg")]
+script = ExtResource("2_l5v0t")
+item_prefab = ExtResource("3_jbfmn")

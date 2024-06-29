@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://b24ue5ftpdgqc"]
+
+[ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_abm2p"]
+[ext_resource type="Script" path="res://scripts/player_tools/player_tool_terrain.gd" id="2_acb6f"]
+[ext_resource type="PackedScene" uid="uid://go8rlyfkdmxb" path="res://scenes/player_tools/glob_stone.tscn" id="3_bsw5h"]
+
+[node name="tool_stone" instance=ExtResource("1_abm2p")]
+script = ExtResource("2_acb6f")
+item_prefab = ExtResource("3_bsw5h")

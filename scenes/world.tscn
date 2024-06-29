@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bwln06s0mijil"]
+[gd_scene load_steps=13 format=3 uid="uid://bwln06s0mijil"]
 
 [ext_resource type="PackedScene" uid="uid://ck7mrxogelqqu" path="res://scenes/ui/items.tscn" id="1_418ir"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_f4mcx"]
@@ -7,16 +7,6 @@
 [ext_resource type="Material" uid="uid://0v75n8kp07id" path="res://assets/materials/ocean.tres" id="3_j8q8g"]
 [ext_resource type="Material" uid="uid://dr8yjj626e2f4" path="res://assets/materials/world_terrain.tres" id="6_i5kdh"]
 [ext_resource type="Script" path="res://scripts/terrain.gd" id="7_uh1ch"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_3vvqu"]
-material = ExtResource("3_8enyy")
-size = Vector2(40, 40)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_vryke"]
-material = ExtResource("3_j8q8g")
-size = Vector2(40, 40)
-
-[sub_resource type="SphereMesh" id="SphereMesh_yvtc8"]
 
 [sub_resource type="HeightMapShape3D" id="HeightMapShape3D_go6xd"]
 map_width = 256
@@ -29,15 +19,19 @@ size = Vector2(256, 256)
 subdivide_width = 256
 subdivide_depth = 256
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7jqwq"]
-size = Vector3(10, 10, 10)
+[sub_resource type="PlaneMesh" id="PlaneMesh_3vvqu"]
+material = ExtResource("3_8enyy")
+size = Vector2(256, 256)
 
-[sub_resource type="BoxMesh" id="BoxMesh_su6s1"]
-size = Vector3(10, 10, 10)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_x8nr0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vryke"]
+material = ExtResource("3_j8q8g")
+size = Vector2(256, 256)
 
 [node name="world" type="Node3D" node_paths=PackedStringArray("ocean_rise_node")]
 script = ExtResource("1_f4mcx")
-ocean_rise_node = NodePath("camera_root")
+ocean_rise_node = NodePath("terrain/water_body")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -49,45 +43,34 @@ visible = false
 
 [node name="items" parent="canvas_layer" instance=ExtResource("1_418ir")]
 
-[node name="camera_root" parent="." instance=ExtResource("1_n7dex")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
-
-[node name="void_plane" type="MeshInstance3D" parent="camera_root"]
-visible = false
-mesh = SubResource("PlaneMesh_3vvqu")
-
-[node name="water_plane" type="MeshInstance3D" parent="camera_root"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-visible = false
-mesh = SubResource("PlaneMesh_vryke")
-
-[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
-mesh = SubResource("SphereMesh_yvtc8")
-
 [node name="terrain" type="Node3D" parent="." node_paths=PackedStringArray("shape", "mesh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
 script = ExtResource("7_uh1ch")
-shape = NodePath("body/shape")
-mesh = NodePath("mesh")
+shape = NodePath("terrain_body/shape")
+mesh = NodePath("terrain_body/mesh")
 known_size = 256.0
 
-[node name="body" type="AnimatableBody3D" parent="terrain"]
+[node name="terrain_body" type="AnimatableBody3D" parent="terrain"]
 
-[node name="shape" type="CollisionShape3D" parent="terrain/body"]
+[node name="shape" type="CollisionShape3D" parent="terrain/terrain_body"]
 shape = SubResource("HeightMapShape3D_go6xd")
 
-[node name="mesh" type="MeshInstance3D" parent="terrain"]
+[node name="mesh" type="MeshInstance3D" parent="terrain/terrain_body"]
 mesh = SubResource("PlaneMesh_ktp6w")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="static_body_3d" type="RigidBody3D" parent="."]
-transform = Transform3D(0.432562, 0.414657, 0.800593, 0.0310124, 0.880597, -0.47285, -0.90107, 0.229365, 0.368054, 155.783, 36, 128)
-collision_layer = 2
+[node name="void_plane" type="MeshInstance3D" parent="terrain"]
+visible = false
+mesh = SubResource("PlaneMesh_3vvqu")
+skeleton = NodePath("../water_body/camera_root")
 
-[node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d"]
-shape = SubResource("BoxShape3D_7jqwq")
+[node name="water_body" type="AnimatableBody3D" parent="terrain"]
 
-[node name="mesh_instance_3d" type="MeshInstance3D" parent="static_body_3d"]
-transform = Transform3D(1, -1.49012e-08, 2.98023e-08, 2.98023e-08, 1, 2.98023e-08, 5.96046e-08, 2.23517e-08, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_su6s1")
+[node name="shape" type="CollisionShape3D" parent="terrain/water_body"]
+shape = SubResource("WorldBoundaryShape3D_x8nr0")
+
+[node name="water_plane" type="MeshInstance3D" parent="terrain/water_body"]
+mesh = SubResource("PlaneMesh_vryke")
+skeleton = NodePath("../camera_root")
+
+[node name="camera_root" parent="terrain/water_body" instance=ExtResource("1_n7dex")]

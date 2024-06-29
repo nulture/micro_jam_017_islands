@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://go8rlyfkdmxb"]
+
+[ext_resource type="PackedScene" uid="uid://eo2quos3bj3v" path="res://scenes/player_tools/glob_base.tscn" id="1_t5884"]
+
+[node name="glob_stone" instance=ExtResource("1_t5884")]
+paint_type = 3
+pmap_falloff = 0.9
