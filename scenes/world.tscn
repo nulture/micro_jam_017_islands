@@ -1,3 +1,18 @@
-[gd_scene format=3 uid="uid://bwln06s0mijil"]
+[gd_scene load_steps=4 format=3 uid="uid://bwln06s0mijil"]
+
+[ext_resource type="PackedScene" uid="uid://kyw7ggafjjsx" path="res://scenes/player_camera.tscn" id="1_n7dex"]
+[ext_resource type="PackedScene" uid="uid://bagdyfnn5e2og" path="res://scenes/player_cursor.tscn" id="2_mueyw"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_a6dcr"]
 
 [node name="world" type="Node3D"]
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_a6dcr")
+
+[node name="omni_light_3d" type="OmniLight3D" parent="mesh_instance_3d"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="camera_root" parent="." instance=ExtResource("1_n7dex")]
+
+[node name="cursor_root" parent="." instance=ExtResource("2_mueyw")]

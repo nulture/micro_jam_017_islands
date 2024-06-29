@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bagdyfnn5e2og"]
+
+[ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_b2fqv"]
+radial_segments = 8
+rings = 5
+
+[node name="cursor_root" type="Node3D"]
+script = ExtResource("1_lxjdj")
+
+[node name="mesh_instance_3d" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_b2fqv")
