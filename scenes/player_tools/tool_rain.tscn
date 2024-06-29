@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://br680u1gnecxx"]
+
+[ext_resource type="PackedScene" uid="uid://b1e4y82nhidct" path="res://scenes/player_tools/tool_base.tscn" id="1_mwiut"]
+[ext_resource type="Script" path="res://scripts/player_tools/tool_rain.gd" id="2_r6m4c"]
+
+[node name="tool_rain" instance=ExtResource("1_mwiut")]
+script = ExtResource("2_r6m4c")

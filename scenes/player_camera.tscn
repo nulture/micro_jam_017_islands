@@ -1,18 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://kyw7ggafjjsx"]
+[gd_scene load_steps=4 format=3 uid="uid://kyw7ggafjjsx"]
 
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="1_kiklo"]
 [ext_resource type="PackedScene" uid="uid://bagdyfnn5e2og" path="res://scenes/player_cursor.tscn" id="2_pmace"]
-[ext_resource type="Material" uid="uid://dsrd6ulm7f4fx" path="res://assets/materials/parallax_plane.tres" id="3_cwafo"]
 
 [sub_resource type="Environment" id="Environment_j8r2m"]
 background_mode = 1
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_mrrj1"]
-material = ExtResource("3_cwafo")
-size = Vector2(40, 40)
-
 [node name="camera_root" type="Node3D"]
 script = ExtResource("1_kiklo")
+sprint_multiplier = 3.0
 stick_speed = 5.0
 edges_speed = 5.0
 edges_thickness = 5.0
@@ -24,7 +20,3 @@ fov = 40.0
 
 [node name="cursor_root" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_pmace")]
 camera = NodePath("../camera_3d")
-
-[node name="void_plane" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
-mesh = SubResource("PlaneMesh_mrrj1")

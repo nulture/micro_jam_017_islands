@@ -1,3 +1,4 @@
+class_name PlayerCursor
 extends Node3D
 
 @export var camera : Camera3D
@@ -5,6 +6,8 @@ extends Node3D
 @export var stick_speed : float = 1.0
 
 @export var player_tools : Array[PackedScene]
+
+static var inst : PlayerCursor
 
 var mouse_position : Vector2
 var stick_vector : Vector3
@@ -14,10 +17,11 @@ var _tool_index : int = -1
 var tool_index : int = 0 :
 	get : return _tool_index
 	set (value) :
-		if _tool_index == value || value >= player_tools.size() : return
+		if _tool_index == value || value < 0 || value >= player_tools.size()  : return
 		_tool_index = value
 		
 		active_tool = player_tools[_tool_index].instantiate() as PlayerTool
+		print("Switched to new tool '%s'" % active_tool.name)
 		
 var _active_tool : PlayerTool
 var active_tool : PlayerTool :
@@ -30,6 +34,7 @@ var active_tool : PlayerTool :
 		add_child(_active_tool)
 
 func _ready() -> void:
+	inst = self
 	tool_index = 0
 	pass
 
