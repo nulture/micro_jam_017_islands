@@ -1,0 +1,51 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="micro_jam_017_islands"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+autoload="*res://addons/scrungly_tools/scripts/autoload.gd"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/resizable=false
+window/size/borderless=true
+
+[editor]
+
+naming/node_name_num_separator=2
+naming/node_name_casing=2
+naming/default_signal_callback_name="on_{node_name}_{signal_name}"
+naming/default_signal_callback_to_self_name="on_{signal_name}"
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "gray",
+"res://assets/": "red",
+"res://scenes/": "green"
+}
+
+[filesystem]
+
+import/blender/enabled=false
+import/fbx/enabled=false
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
