@@ -8,8 +8,8 @@ class_name Terrain extends Node3D
 @export var pixels_per_unit : float = 1.0
 
 var hmap_shape : HeightMapShape3D
-var image : Image
-var texture : ImageTexture
+var hmap_image : Image
+var hmap_texture : ImageTexture
 
 static var inst : Terrain
 
@@ -17,20 +17,19 @@ static var inst : Terrain
 func _ready() -> void:
 	inst = self
 	
-	hmap_shape = shape.shape
-	hmap_shape.map_width = pixels
-	hmap_shape.map_depth = pixels
-	
 	var mat = mesh.mesh.surface_get_material(0) as ShaderMaterial
-	texture = mat.get_shader_parameter("height") as ImageTexture
-	print(texture)
+	hmap_texture = mat.get_shader_parameter("height") as ImageTexture
 	
 	var data = PackedByteArray()
 	data.resize(pixels * pixels * 4)
-	image = Image.new()
-	image.set_data(pixels, pixels, false, Image.FORMAT_RF, data)
-	texture.set_image(image)
-	pass # Replace with function body.
+	hmap_image = Image.new()
+	hmap_image.set_data(pixels, pixels, false, Image.FORMAT_RF, data)
+	hmap_texture.set_image(hmap_image)
+	
+	hmap_shape = shape.shape
+	hmap_shape.map_width = pixels
+	hmap_shape.map_depth = pixels
+	hmap_shape.map_data = hmap_image.get_data().to_float32_array()
 
 func add_height(unit_position : Vector2, height : float, radius : float, falloff : float) -> void :	
 	unit_position -= Vector2.ONE * radius
@@ -44,13 +43,13 @@ func add_height(unit_position : Vector2, height : float, radius : float, falloff
 		var x = rect_position.x + ix
 		if x < 0 :
 			continue
-		elif x >= image.get_width() :
+		elif x >= hmap_image.get_width() :
 			continue
 		for iy in rect_size.y :
 			var y = rect_position.y + iy
 			if y < 0 :
 				continue
-			elif y >= image.get_height() :
+			elif y >= hmap_image.get_height() :
 				continue
 			var ipos = Vector2i(ix, iy)
 			var pos = Vector2i(x, y)
@@ -62,13 +61,14 @@ func add_height(unit_position : Vector2, height : float, radius : float, falloff
 			# Do powers and such here
 			var ih = height * clamp(alpha, 0.0, 1.0)
 			
-			var c = image.get_pixelv(pos)
+			var c = hmap_image.get_pixelv(pos)
 			c += Color(ih, ih, ih)
-			image.set_pixelv(pos, c)
+			hmap_image.set_pixelv(pos, c)
 
-	texture.set_image(image)
-	hmap_shape.map_data = image.get_data().to_float32_array()
+	hmap_texture.set_image(hmap_image)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _physics_process(delta: float) -> void:
+	hmap_shape.map_data = hmap_image.get_data().to_float32_array()
+
 func _process(delta: float) -> void:
 	pass

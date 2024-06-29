@@ -30,8 +30,10 @@ subdivide_width = 256
 subdivide_depth = 256
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7jqwq"]
+size = Vector3(10, 10, 10)
 
 [sub_resource type="BoxMesh" id="BoxMesh_su6s1"]
+size = Vector3(10, 10, 10)
 
 [node name="world" type="Node3D" node_paths=PackedStringArray("ocean_rise_node")]
 script = ExtResource("1_f4mcx")
@@ -49,9 +51,6 @@ visible = false
 
 [node name="camera_root" parent="." instance=ExtResource("1_n7dex")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 128, 0, 128)
-
-[node name="camera_3d" parent="camera_root" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 100, 100)
 
 [node name="void_plane" type="MeshInstance3D" parent="camera_root"]
 visible = false
@@ -82,13 +81,11 @@ shape = SubResource("HeightMapShape3D_go6xd")
 mesh = SubResource("PlaneMesh_ktp6w")
 skeleton = NodePath("../..")
 
-[node name="static_body_3d" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0, 20)
+[node name="static_body_3d" type="RigidBody3D" parent="."]
+transform = Transform3D(0.432562, 0.414657, 0.800593, 0.0310124, 0.880597, -0.47285, -0.90107, 0.229365, 0.368054, 128, 36, 128)
 
 [node name="collision_shape_3d" type="CollisionShape3D" parent="static_body_3d"]
 shape = SubResource("BoxShape3D_7jqwq")
 
 [node name="mesh_instance_3d" type="MeshInstance3D" parent="static_body_3d"]
 mesh = SubResource("BoxMesh_su6s1")
-
-[editable path="camera_root"]

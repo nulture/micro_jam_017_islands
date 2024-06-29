@@ -9,14 +9,14 @@ background_mode = 1
 [node name="camera_root" type="Node3D"]
 script = ExtResource("1_kiklo")
 sprint_multiplier = 3.0
-stick_speed = 5.0
-edges_speed = 5.0
+stick_speed = 50.0
+edges_speed = 50.0
 edges_thickness = 5.0
 
 [node name="camera_3d" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 13, 13)
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 100, 100)
 environment = SubResource("Environment_j8r2m")
-fov = 40.0
+fov = 20.0
 
 [node name="cursor_root" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_pmace")]
 camera = NodePath("../camera_3d")

@@ -181,6 +181,11 @@ use_tool={
 ]
 }
 
+[physics]
+
+3d/physics_engine="GodotPhysics3D"
+3d/default_gravity=50.0
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
