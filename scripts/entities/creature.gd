@@ -5,11 +5,18 @@ signal touch_other(other: Creature)
 @export var touch_timer : Timer
 @export var birth_timer : Timer
 
+@export_category("Physics")
+@export var friction : float = 5.0
+@export var jump_lateral_strength : float = 1.0
+@export var jump_vertical_strength : float = 1.0
+
+@export_category("Life")
 @export var species : StringName
 @export var hunger_max : float = 10.0
 @export var hunger_rate : float = 0.1
 @export var hangry_threshold : float = 5.0
 
+var self_scene : PackedScene
 var random = RandomNumberGenerator.new()
 
 var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -17,7 +24,7 @@ var gravity : float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var hunger : float = 1.0
 
 var is_adult = true
-var is_ready = true
+var is_ready = false
 
 var is_touch_ready : bool :
 	#get : return touch_timer.is_stopped() && birth_timer.is_stopped()
@@ -27,18 +34,34 @@ var is_hangry : bool :
 	get : return hunger < hangry_threshold
 
 func _ready() -> void:
+	self_scene = PackedScene.new()
+	self_scene.pack(self)
+	
 	hunger = hunger_max
+	
+func _input(event: InputEvent) -> void:
+	if Input.is_action_just_pressed("ui_accept") :
+		print("spawn")
+		spawn(global_position, global_basis.x)
 
 func _physics_process(delta: float) -> void:
-	velocity.y -= gravity * delta
-	
+	if is_on_floor() :
+		velocity.x -= velocity.x * friction * delta
+		velocity.z -= velocity.z * friction * delta
+	else :
+		velocity.y -= gravity * delta
+
 	move_and_slide()
+	
 	
 	# Hunger
 	hunger -= hunger_rate * delta
 	if hunger < 0.0 :
 		print("I've starved")
 		kill()
+
+	# Prevent death on spawn or if not ready to touch
+	if !is_touch_ready : return
 	
 	# Drowning
 	if Terrain.inst.check_is_underwater(self) :
@@ -61,12 +84,16 @@ func mate(other: Creature) -> void :
 		baby()
 	else :
 		other.baby()
-		
+
+func spawn(from: Vector3, to: Vector3) -> void :
+	global_position = from
+	velocity = to * jump_lateral_strength + Vector3.UP * jump_vertical_strength
+
 func kill() -> void :
 	queue_free()
 	
 func baby() -> void :
-	var node = (load(scene_file_path) as PackedScene).instantiate()
+	var node = self_scene.instantiate()
 	get_tree().root.add_child(node)
 	node.global_position = global_position + global_basis.x
 	node.is_adult = false
@@ -131,10 +158,8 @@ func on_touch_other(other: Creature) -> void:
 			#print("We are different species. But we're both full, so let's have babies.")
 			mate(other)
 
-
 func on_touch_cooldown_timeout() -> void:
 	is_ready = true
-
 
 func on_birth_cooldown_timeout() -> void:
 	is_adult = true

@@ -190,7 +190,7 @@ use_tool={
 [physics]
 
 3d/physics_engine="GodotPhysics3D"
-3d/default_gravity=50.0
+3d/default_gravity=20.0
 
 [rendering]
 
