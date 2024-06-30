@@ -22,8 +22,7 @@ var edges_boundary : Vector2 :
 
 
 var mouse_position : Vector2
-var stick_vector : Vector3
-
+var stick_vector : Vector3		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -37,7 +36,8 @@ func _process(delta: float) -> void:
 	elif mouse_position.y > edges_boundary.y :
 		edges_vector.z += 1.0
 	
-	position += edges_vector * edges_speed * _sprint_multiplier * delta
+	if PlayerCursor.is_mouse_cursor_in_window :
+		position += edges_vector * edges_speed * _sprint_multiplier * delta
 	position += stick_vector * stick_speed * _sprint_multiplier * delta
 	
 	global_position.x = clamp(global_position.x, 0, Terrain.inst.hmap_size)

@@ -17,8 +17,9 @@ var mouse_enabled : bool
 var mouse_input_enabled : 
 	get : return mouse_enabled && is_mouse_cursor_in_world
 
+static var is_mouse_cursor_in_window : bool
 static var is_mouse_cursor_in_world : bool :
-	get : return Input.mouse_mode == Input.MOUSE_MODE_CONFINED_HIDDEN
+	get : return Input.mouse_mode == Input.MOUSE_MODE_CONFINED_HIDDEN || Input.mouse_mode == Input.MOUSE_MODE_HIDDEN
 
 var _tool_index : int = -1
 var tool_index : int = 0 :
@@ -45,6 +46,15 @@ func _ready() -> void:
 	inst = self
 	tool_index = 0
 	pass
+	
+
+func _notification(what: int) -> void:
+	match what :
+		NOTIFICATION_WM_MOUSE_ENTER :
+			is_mouse_cursor_in_window = true
+		NOTIFICATION_WM_MOUSE_EXIT :
+			is_mouse_cursor_in_window = false
+	
 
 func _process(delta: float) -> void:
 	if mouse_input_enabled :
@@ -62,6 +72,9 @@ func _input(event: InputEvent) -> void:
 		mouse_position = event.position
 	elif input.length_squared() != 0.0 :
 		mouse_enabled = false
+		
+	if Input.is_action_just_pressed("system_focus") :
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 		
 	if Input.is_action_just_pressed("tool_slot_1") : 
 		tool_index = 0

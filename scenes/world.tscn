@@ -85,7 +85,9 @@ mesh = SubResource("PlaneMesh_vryke")
 [node name="camera_root" parent="terrain/water_body" instance=ExtResource("1_n7dex")]
 
 [node name="creature_spawner" parent="terrain/water_body" instance=ExtResource("7_7hgt7")]
+spawn_rate = 1.0
 
 [node name="unlock_all_tools_debug" type="Node3D" parent="terrain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -128, 0, -128)
+visible = false
 script = ExtResource("1_c3h2v")
