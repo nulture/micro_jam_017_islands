@@ -20,6 +20,7 @@ var water_level : float :
 	set (value) :
 		_water_level_internal = value
 		water_node.global_position.y = value + water_padding
+		PlayerCursor.inst.mouse_plane.d = water_node.global_position.y
 		material.set_shader_parameter("height_light_min", water_level)
 
 var pmap_image : Image
@@ -127,6 +128,9 @@ func get_paint_at(coord : Vector2i) -> int :
 	if color.b > 0.0 :
 		return 3
 	return 0
+	
+func get_paint_at_pos(v : Vector3) -> int :
+	return get_paint_at(Vector2i(round(v.x), round(v.z)))
 
 func check_pos_overwater(pos : Vector3) -> bool :
 	return get_height_at(Vector2i(round(pos.x), round(pos.z))) <= water_level

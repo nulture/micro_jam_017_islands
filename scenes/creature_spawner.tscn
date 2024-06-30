@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnx6hx0uu40sg"]
 
 [ext_resource type="Script" path="res://scripts/creature_spawner.gd" id="1_gverh"]
-[ext_resource type="PackedScene" uid="uid://ctcygxcpg47cy" path="res://scenes/creatures/creature_base.tscn" id="2_d78jq"]
+[ext_resource type="PackedScene" uid="uid://b6feeb6c6h357" path="res://scenes/creatures/creature_snake.tscn" id="2_gjtfs"]
 [ext_resource type="Script" path="res://addons/scrungly_tools/scripts/move_with_cast_3d.gd" id="3_0jw04"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_miix5"]
@@ -16,7 +16,7 @@ height = 0.1
 [node name="creature_spawner" type="Node3D" node_paths=PackedStringArray("shape_cast")]
 script = ExtResource("1_gverh")
 shape_cast = NodePath("spawn_caster")
-scene_pool = Array[PackedScene]([ExtResource("2_d78jq")])
+scene_pool = Array[PackedScene]([ExtResource("2_gjtfs")])
 spawn_rate = 0.1
 
 [node name="spawn_caster" type="ShapeCast3D" parent="."]

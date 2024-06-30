@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bagdyfnn5e2og"]
+[gd_scene load_steps=11 format=3 uid="uid://bagdyfnn5e2og"]
 
 [ext_resource type="Script" path="res://scripts/player_cursor.gd" id="1_lxjdj"]
 [ext_resource type="PackedScene" uid="uid://dhrtwdrxxt3f" path="res://scenes/player_tools/tool_sand.tscn" id="2_eniv1"]
@@ -23,16 +23,12 @@ outer_radius = 3.0
 rings = 12
 ring_segments = 3
 
-[sub_resource type="SphereMesh" id="SphereMesh_xb0q0"]
-radius = 2.0
-height = 4.0
-
 [node name="cursor_root" type="Node3D" node_paths=PackedStringArray("spawn_node")]
 script = ExtResource("1_lxjdj")
 spawn_node = NodePath("cast/cursor_ground/spawn")
 mouse_plane = Plane(0, 1, 0, 0)
-stick_speed = 5.0
-player_tools = Array[PackedScene]([ExtResource("2_wrebh"), ExtResource("3_qvq1l"), ExtResource("2_eniv1"), ExtResource("5_oclif"), ExtResource("6_m8hfg")])
+stick_speed = 50.0
+player_tools = Array[PackedScene]([ExtResource("2_wrebh"), ExtResource("2_eniv1"), ExtResource("5_oclif"), ExtResource("6_m8hfg"), ExtResource("3_qvq1l")])
 
 [node name="cast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
@@ -51,5 +47,9 @@ skeleton = NodePath("../../..")
 [node name="spawn" type="Node3D" parent="cast/cursor_ground"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, 0)
 
-[node name="mesh" type="MeshInstance3D" parent="cast/cursor_ground/spawn"]
-mesh = SubResource("SphereMesh_xb0q0")
+[node name="unlock_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="unlock_timer" to="." method="on_unlock_light_timer_timeout"]

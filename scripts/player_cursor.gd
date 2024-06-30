@@ -7,17 +7,24 @@ extends Node3D
 @export var stick_speed : float = 1.0
 
 @export var player_tools : Array[PackedScene]
+@export var unlocked_tools : Dictionary
 
 static var inst : PlayerCursor
 
 var mouse_position : Vector2
 var stick_vector : Vector3
 var mouse_enabled : bool
+var mouse_input_enabled : 
+	get : return mouse_enabled && is_mouse_cursor_in_world
+
+static var is_mouse_cursor_in_world : bool :
+	get : return Input.mouse_mode == Input.MOUSE_MODE_CONFINED_HIDDEN
 
 var _tool_index : int = -1
 var tool_index : int = 0 :
 	get : return _tool_index
 	set (value) :
+		if !is_tool_unlocked(value) : return
 		if _tool_index == value || value < 0 || value >= player_tools.size()  : return
 		_tool_index = value
 		
@@ -40,8 +47,8 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	if mouse_enabled :
-		global_position = mouse_plane.intersects_ray(camera.project_ray_origin(mouse_position), camera.project_ray_normal(mouse_position))
+	if mouse_input_enabled :
+			global_position = mouse_plane.intersects_ray(camera.project_ray_origin(mouse_position), camera.project_ray_normal(mouse_position))
 	else :
 		position += stick_vector * stick_speed * delta
 	
@@ -78,3 +85,14 @@ func _input(event: InputEvent) -> void:
 		tool_index -= 1
 	if Input.is_action_just_pressed("tool_slot_right") : 
 		tool_index += 1
+		
+func is_tool_unlocked(i : int) -> bool :
+	return unlocked_tools.has(i)
+	
+func unlock_tool(i : int) -> void :
+	if is_tool_unlocked(i) : return
+	unlocked_tools[i] = null
+	ItemsUI.inst.play_unlock_anim(i + 1)
+
+func on_unlock_light_timer_timeout() -> void:
+	unlock_tool(0)

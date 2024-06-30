@@ -30,6 +30,9 @@ enum BEHAVIOR_STATE { WANDER }
 @export var wander_length_interval_min : float = 1.0
 @export var wander_length_interval_max : float = 3.0
 
+@export_category("Animation")
+@export var sprite : AnimatedSprite3D
+
 var self_scene : PackedScene
 var random = RandomNumberGenerator.new()
 
@@ -47,6 +50,10 @@ var is_moving : bool :
 	set (value) :
 		if _is_moving == value : return
 		_is_moving = value
+		if _is_moving :
+			sprite.play("move")
+		else : 
+			sprite.play("idle")
 
 var is_wander_ready : bool
 

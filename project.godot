@@ -30,8 +30,6 @@ window/size/viewport_height=540
 window/size/resizable=false
 window/size/borderless=true
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
-window/stretch/scale=2.0
 
 [editor]
 

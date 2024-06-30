@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6feeb6c6h357"]
+
+[ext_resource type="PackedScene" uid="uid://ctcygxcpg47cy" path="res://scenes/creatures/creature_base.tscn" id="1_cbgdx"]
+[ext_resource type="SpriteFrames" uid="uid://dqa6e36j0eumj" path="res://assets/sprites/snake_frames.tres" id="2_fps7l"]
+
+[node name="creature_snake" instance=ExtResource("1_cbgdx")]
+species = &"snake"
+
+[node name="sprite" parent="terrain_cast/touch_area/collision_shape_3d" index="0"]
+pixel_size = 0.3
+sprite_frames = ExtResource("2_fps7l")
+animation = &"move"
+frame_progress = 0.692411

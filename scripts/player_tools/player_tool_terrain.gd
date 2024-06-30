@@ -13,6 +13,10 @@ func process_hold(delta: float) -> void:
 		for i in floor(counter / spawn_rate) :
 			spawn_glob()
 		counter = fmod(counter, spawn_rate)
+		
+func tool_press() -> void :
+	counter = spawn_rate
+	super.tool_press()
 	
 func spawn_glob() -> void :
 	var glob = item_prefab.instantiate()

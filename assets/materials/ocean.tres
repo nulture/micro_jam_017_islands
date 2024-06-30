@@ -1,10 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://0v75n8kp07id"]
 
-[ext_resource type="Shader" uid="uid://8fyn4icg3n44" path="res://assets/shaders/parallax_plane.tres" id="1_ia2oi"]
-[ext_resource type="Texture2D" uid="uid://br8eimrb8bjmj" path="res://assets/textures/t_water.png" id="2_jxv16"]
+[ext_resource type="Shader" uid="uid://biv5pmrcyiqck" path="res://assets/shaders/water.tres" id="1_h3ur0"]
+[ext_resource type="Texture2D" uid="uid://bsrr0e5bk3jsk" path="res://assets/textures/t_noise.png" id="2_fnh1n"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_ia2oi")
-shader_parameter/uv_scale = Vector2(4, 4)
-shader_parameter/albedo = ExtResource("2_jxv16")
+shader = ExtResource("1_h3ur0")
+shader_parameter/noise = ExtResource("2_fnh1n")

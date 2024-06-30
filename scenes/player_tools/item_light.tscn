@@ -1,11 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://d27n6f2inetnl"]
+[gd_scene load_steps=3 format=3 uid="uid://d27n6f2inetnl"]
 
 [ext_resource type="PackedScene" uid="uid://hwok4xxd2hos" path="res://scenes/player_tools/item_base.tscn" id="1_67xv4"]
+[ext_resource type="Script" path="res://scripts/player_tools/item_light.gd" id="2_guxoq"]
 
-[node name="item_base" instance=ExtResource("1_67xv4")]
+[node name="item_light" instance=ExtResource("1_67xv4")]
+script = ExtResource("2_guxoq")
 
 [node name="omni_light_3d" type="OmniLight3D" parent="." index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
 light_color = Color(1, 1, 0.666667, 1)
-light_energy = 2.0
-omni_range = 30.0
+light_energy = 4.0
+omni_range = 120.0

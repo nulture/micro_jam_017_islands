@@ -41,6 +41,10 @@ func try_spawn() -> void :
 	if !Terrain.inst.check_pos_overwater(global_position) : 
 		#print("Can't spawn from land")
 		return
+		
+	if Terrain.inst.get_paint_at_pos(shape_cast.get_collision_point(0)) != 1 :
+		#print("Must spawn on sand")
+		return
 	
 	var node = random_creature_scene.instantiate()
 	get_tree().root.add_child(node)

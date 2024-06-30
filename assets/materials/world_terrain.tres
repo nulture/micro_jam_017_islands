@@ -10,7 +10,7 @@
 render_priority = 0
 shader = ExtResource("1_enfaq")
 shader_parameter/height_light_min = 0.0
-shader_parameter/height_light = 50.0
+shader_parameter/height_light = 80.0
 shader_parameter/height_emission = 1.0
 shader_parameter/height = SubResource("ImageTexture_dv5pg")
 shader_parameter/paint = SubResource("ImageTexture_5xka3")

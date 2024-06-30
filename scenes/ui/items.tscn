@@ -1,12 +1,195 @@
-[gd_scene format=3 uid="uid://ck7mrxogelqqu"]
+[gd_scene load_steps=16 format=3 uid="uid://ck7mrxogelqqu"]
 
-[node name="items" type="Control"]
+[ext_resource type="Script" path="res://scripts/ui/cursor_appear_on_hover.gd" id="1_6vl7g"]
+[ext_resource type="Script" path="res://scenes/ui/items_ui.gd" id="1_bdejp"]
+[ext_resource type="Texture2D" uid="uid://biwav8bmfhdnc" path="res://assets/sprites/ui_lightbulb.png" id="1_jlh6f"]
+[ext_resource type="Texture2D" uid="uid://dn7bo8xt2aw0q" path="res://assets/sprites/ui_rain.png" id="2_2ed0r"]
+[ext_resource type="Texture2D" uid="uid://bf7ks0xmc7qhr" path="res://assets/sprites/ui_sand.png" id="3_yx4cn"]
+[ext_resource type="Texture2D" uid="uid://o7fgyp2tyn31" path="res://assets/sprites/ui_soil.png" id="4_ujdy3"]
+[ext_resource type="Texture2D" uid="uid://bid6n0n0v6a8h" path="res://assets/sprites/ui_stone.png" id="5_xyl5u"]
+
+[sub_resource type="Animation" id="Animation_0mxti"]
+resource_name = "unlock_1"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/container/button_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 0.5),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t1w73"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/container/button_1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 60)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("h_box_container/control/button_2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 60)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("h_box_container/control_2/button_3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 60)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("h_box_container/control_3/button_4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 60)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("h_box_container/control_4/button_5:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 60)]
+}
+
+[sub_resource type="Animation" id="Animation_2jw7a"]
+resource_name = "unlock_2"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/control/button_2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_c80xc"]
+resource_name = "unlock_3"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/control_2/button_3:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3750p"]
+resource_name = "unlock_4"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/control_3/button_4:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("h_box_container/control_2/button_3:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_yen1h"]
+resource_name = "unlock_5"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("h_box_container/control_4/button_5:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 60), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2l02t"]
+_data = {
+"RESET": SubResource("Animation_t1w73"),
+"unlock_1": SubResource("Animation_0mxti"),
+"unlock_2": SubResource("Animation_2jw7a"),
+"unlock_3": SubResource("Animation_c80xc"),
+"unlock_4": SubResource("Animation_3750p"),
+"unlock_5": SubResource("Animation_yen1h")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_5avfc"]
+font_size = 12
+
+[node name="items" type="Control" node_paths=PackedStringArray("anim_player")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bdejp")
+anim_player = NodePath("animation_player")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_2l02t")
+}
 
 [node name="h_box_container" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -15,28 +198,170 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -53.0
-offset_top = -40.0
-offset_right = 53.0
+offset_left = -216.0
+offset_top = -60.0
+offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(0, 40)
+mouse_default_cursor_shape = 2
+script = ExtResource("1_6vl7g")
 
-[node name="button" type="Button" parent="h_box_container"]
+[node name="container" type="Control" parent="h_box_container"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-text = "Light"
+mouse_filter = 2
 
-[node name="button_2" type="Button" parent="h_box_container"]
+[node name="button_1" type="Button" parent="h_box_container/container"]
 layout_mode = 2
-text = "Water"
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+mouse_filter = 1
+icon = ExtResource("1_jlh6f")
 
-[node name="button_3" type="Button" parent="h_box_container"]
-layout_mode = 2
-text = "Sand"
+[node name="label" type="Label" parent="h_box_container/container/button_1"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "1"
+label_settings = SubResource("LabelSettings_5avfc")
+horizontal_alignment = 2
+vertical_alignment = 2
 
-[node name="button_4" type="Button" parent="h_box_container"]
+[node name="control" type="Control" parent="h_box_container"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-text = "Soil"
+mouse_filter = 2
 
-[node name="button_5" type="Button" parent="h_box_container"]
+[node name="button_2" type="Button" parent="h_box_container/control"]
 layout_mode = 2
-text = "Lightning"
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+mouse_filter = 1
+icon = ExtResource("3_yx4cn")
+
+[node name="label" type="Label" parent="h_box_container/control/button_2"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "2"
+label_settings = SubResource("LabelSettings_5avfc")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="control_2" type="Control" parent="h_box_container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="button_3" type="Button" parent="h_box_container/control_2"]
+layout_mode = 2
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+mouse_filter = 1
+icon = ExtResource("4_ujdy3")
+
+[node name="label" type="Label" parent="h_box_container/control_2/button_3"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "3"
+label_settings = SubResource("LabelSettings_5avfc")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="control_3" type="Control" parent="h_box_container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="button_4" type="Button" parent="h_box_container/control_3"]
+layout_mode = 2
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+mouse_filter = 1
+icon = ExtResource("5_xyl5u")
+
+[node name="label" type="Label" parent="h_box_container/control_3/button_4"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "4"
+label_settings = SubResource("LabelSettings_5avfc")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="control_4" type="Control" parent="h_box_container"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="button_5" type="Button" parent="h_box_container/control_4"]
+layout_mode = 2
+offset_top = 60.0
+offset_right = 40.0
+offset_bottom = 100.0
+mouse_filter = 1
+icon = ExtResource("2_2ed0r")
+
+[node name="label" type="Label" parent="h_box_container/control_4/button_5"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+offset_bottom = 2.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "5"
+label_settings = SubResource("LabelSettings_5avfc")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="mouse_entered" from="h_box_container" to="h_box_container" method="on_mouse_entered"]
+[connection signal="mouse_exited" from="h_box_container" to="h_box_container" method="on_mouse_exited"]
+[connection signal="pressed" from="h_box_container/container/button_1" to="." method="set_tool" binds= [0]]
+[connection signal="pressed" from="h_box_container/control/button_2" to="." method="set_tool" binds= [1]]
+[connection signal="pressed" from="h_box_container/control_2/button_3" to="." method="set_tool" binds= [2]]
+[connection signal="pressed" from="h_box_container/control_3/button_4" to="." method="set_tool" binds= [3]]
+[connection signal="pressed" from="h_box_container/control_4/button_5" to="." method="set_tool" binds= [4]]
